@@ -1,0 +1,55 @@
+package com.JPAJakartaEE8.Entity;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.LinkedList;
+
+@Entity
+@AttributeOverride(name = "Id",column = @Column(name = "PROJECT_ID"))
+@Table(name = "PROJECTS")
+public class Project extends AbstractEntity{
+    private String projectName;
+    private LocalDate projectStartDate;
+    private LocalDate projectEndDate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "PROJECTS_EMPLOYEES",
+            joinColumns = @JoinColumn(name = "PROJECT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "EMP_ID")
+    )
+    private Collection<Employee> employees = new LinkedList<>();
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public LocalDate getProjectStartDate() {
+        return projectStartDate;
+    }
+
+    public void setProjectStartDate(LocalDate projectStartDate) {
+        this.projectStartDate = projectStartDate;
+    }
+
+    public LocalDate getProjectEndDate() {
+        return projectEndDate;
+    }
+
+    public void setProjectEndDate(LocalDate projectEndDate) {
+        this.projectEndDate = projectEndDate;
+    }
+
+    public Collection<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Collection<Employee> employees) {
+        this.employees = employees;
+    }
+}
